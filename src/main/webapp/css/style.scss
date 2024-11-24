@@ -1,0 +1,198 @@
+// 기본 스타일
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+// 네비게이션 바
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      margin-right: auto;
+    }
+
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+
+      li {
+        margin-left: 20px;
+
+        a {
+          text-decoration: none;
+          color: white;
+          font-size: 1rem;
+
+          &:hover {
+            color: #d9ffd9;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 콘텐츠 영역
+.content {
+  margin-top: 80px;
+  padding: 20px;
+
+  .form-container {
+    margin-bottom: 20px;
+    text-align: left; // 전체 왼쪽 정렬
+
+    h2 {
+      color: #4CAF50;
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+    }
+
+    // 버튼 컨테이너 (Open API 버튼, 근처 WiFi 버튼)
+    .button-container {
+      margin: 10px 0;
+
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+
+    // 입력 필드 컨테이너
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      label {
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 8px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 10px 15px;
+        font-size: 1rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      th {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+}
+
+// 테이블 스타일
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  }
+}
+
+// 삭제 버튼 스타일
+form button {
+  background-color: #FF5722;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #E64A19;
+  }
+}
