@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.navbar .navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+.navbar .navbar-container .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-right: auto;
+}
+.navbar .navbar-container .nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.navbar .navbar-container .nav-links li {
+  margin-left: 20px;
+}
+.navbar .navbar-container .nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+.navbar .navbar-container .nav-links li a:hover {
+  color: #d9ffd9;
+}
+
+.content {
+  margin-top: 80px;
+  padding: 20px;
+}
+.content .form-container {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.content .form-container h2 {
+  color: #4CAF50;
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+}
+.content .form-container .button-container {
+  margin: 10px 0;
+}
+.content .form-container .button-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.content .form-container .button-container button:hover {
+  background-color: #0056b3;
+}
+.content .form-container .input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.content .form-container .input-container label {
+  font-size: 1rem;
+}
+.content .form-container .input-container input {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.content .form-container .input-container button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.content .form-container .input-container button:hover {
+  background-color: #45a049;
+}
+.content .table-container {
+  overflow-x: auto;
+}
+.content .table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.content .table-container table th, .content .table-container table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.content .table-container table th {
+  background-color: #4CAF50;
+  color: white;
+}
+.content .table-container table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.content .table-container table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.table-container table th, .table-container table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.table-container table th {
+  background-color: #4CAF50;
+  color: white;
+}
+.table-container table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.table-container table tr:hover {
+  background-color: #f1f1f1;
+}
+
+form button {
+  background-color: #FF5722;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+form button:hover {
+  background-color: #E64A19;
+}
+
+/*# sourceMappingURL=style.css.map */
