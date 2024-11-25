@@ -14,7 +14,7 @@
     <!-- 네비게이션 바 -->
     <nav class="navbar">
         <div class="navbar-container">
-            <h1 class="logo">WiFi Service</h1>
+            <h1 class="logo">Wi-Fi Service</h1>
             <ul class="nav-links">
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="history.jsp">위치 History</a></li>
