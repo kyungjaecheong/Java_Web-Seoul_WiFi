@@ -196,3 +196,27 @@ form button {
     background-color: #E64A19;
   }
 }
+
+// 로딩 메시지 및 스피너 스타일
+#status-message {
+  margin-top: 10px;
+  font-size: 14px;
+
+  &.loading {
+    color: blue;
+  }
+
+  &.success {
+    color: green;
+  }
+
+  &.error {
+    color: red;
+  }
+}
+
+#loading-spinner {
+  margin-left: 10px;
+  font-size: 14px;
+  color: blue;
+}
