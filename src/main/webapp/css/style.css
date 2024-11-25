@@ -162,4 +162,24 @@ form button:hover {
   background-color: #E64A19;
 }
 
+#status-message {
+  margin-top: 10px;
+  font-size: 14px;
+}
+#status-message.loading {
+  color: blue;
+}
+#status-message.success {
+  color: green;
+}
+#status-message.error {
+  color: red;
+}
+
+#loading-spinner {
+  margin-left: 10px;
+  font-size: 14px;
+  color: blue;
+}
+
 /*# sourceMappingURL=style.css.map */
