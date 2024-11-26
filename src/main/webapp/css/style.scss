@@ -18,9 +18,10 @@ body {
   z-index: 1000;
 
   .navbar-container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
     display: flex;
+    justify-content: space-between; // 로고와 링크 양쪽 정렬
     align-items: center;
     padding: 10px 20px;
 
@@ -28,7 +29,7 @@ body {
       font-size: 1.5rem;
       font-weight: bold;
       color: white;
-      margin-right: auto;
+      text-align: left;
     }
 
     .nav-links {
@@ -61,7 +62,6 @@ body {
 
   .form-container {
     margin-bottom: 20px;
-    text-align: left; // 전체 왼쪽 정렬
 
     h2 {
       color: #4CAF50;
@@ -69,7 +69,6 @@ body {
       font-size: 1.5rem;
     }
 
-    // 버튼 컨테이너 (Open API 버튼, 근처 WiFi 버튼)
     .button-container {
       margin: 10px 0;
 
@@ -88,7 +87,6 @@ body {
       }
     }
 
-    // 입력 필드 컨테이너
     .input-container {
       display: flex;
       align-items: center;
@@ -121,56 +119,27 @@ body {
       }
     }
   }
-
-  .table-container {
-    overflow-x: auto;
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-
-      th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-        font-size: 0.9rem;
-      }
-
-      th {
-        background-color: #4CAF50;
-        color: white;
-      }
-
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-    }
-  }
 }
 
 // 테이블 스타일
 .table-container {
-  margin-top: 20px;
+  margin: 20px 0;
   overflow-x: auto;
 
   table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left;
+    text-align: center;
 
     th, td {
       border: 1px solid #ddd;
-      padding: 8px;
+      padding: 10px;
     }
 
     th {
       background-color: #4CAF50;
       color: white;
+      font-weight: bold;
     }
 
     tr:nth-child(even) {
@@ -180,20 +149,91 @@ body {
     tr:hover {
       background-color: #f1f1f1;
     }
+
+    td {
+      vertical-align: middle;
+
+      // 북마크 그룹 테이블의 링크 스타일
+      &.action-cell a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+
+        &:hover {
+          color: #0056b3;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
 
-// 삭제 버튼 스타일
-form button {
-  background-color: #FF5722;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
+// 와이파이 테이블 스타일
+.wifi-table td a {
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
 
   &:hover {
-    background-color: #E64A19;
+    color: #45a049;
+    text-decoration: underline;
+  }
+}
+
+// "북마크 그룹 추가" 버튼 & "그룹 전체 삭제" 버튼 스타일
+.action-container {
+  display: flex;
+  justify-content: space-between; // 양쪽 정렬
+  align-items: center; // 세로 정렬을 가운데로 조정
+  margin-bottom: 15px;
+
+  .add-button, .delete-all-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block; // 버튼이 블록처럼 늘어지지 않도록 함
+  }
+
+  .add-button {
+    background-color: #007bff;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .delete-all-button {
+    background-color: #dc3545;
+    border: none;
+
+    &:hover {
+      background-color: #a71d2a;
+    }
+  }
+}
+
+// 수정, 삭제 버튼 스타일
+.table-container td.action-cell a {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+
+  &:first-child {
+    margin-right: 5px;
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  &:last-child {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  &:hover {
+    filter: brightness(85%);
   }
 }
 

@@ -76,7 +76,7 @@
 
         <!-- 표 -->
         <div class="table-container">
-            <table>
+            <table class="wifi-table">
                 <thead>
                 <tr>
                     <th>거리(Km)</th>
