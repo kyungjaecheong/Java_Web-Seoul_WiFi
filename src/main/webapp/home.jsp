@@ -1,5 +1,4 @@
 <%@ page import="dbtool.HistoryDBTool" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="dbtool.WifiLocation" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -119,7 +118,11 @@
                     <td><%= String.format("%.4f", wifi.getDistance()) %></td>
                     <td><%= wifi.getMgrNo() %></td>
                     <td><%= wifi.getWrdofc() %></td>
-                    <td><%= wifi.getMainNm() %></td>
+                    <td>
+                        <a href="#" onclick="openDetailPopup('<%= wifi.getMgrNo() %>'); return false;">
+                            <%= wifi.getMainNm() %>
+                        </a>
+                    </td>
                     <td><%= wifi.getAdres1() %></td>
                     <td><%= wifi.getAdres2() %></td>
                     <td><%= wifi.getInstlFloor() %></td>
@@ -148,6 +151,7 @@
             </table>
         </div>
     </main>
+
 
     <!-- JavaScript 파일 불러오기 -->
     <script src="js/functions.js"></script>
