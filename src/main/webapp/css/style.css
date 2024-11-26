@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
@@ -16,9 +17,10 @@ body {
   z-index: 1000;
 }
 .navbar .navbar-container {
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
 }
@@ -26,7 +28,7 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-  margin-right: auto;
+  text-align: left;
 }
 .navbar .navbar-container .nav-links {
   list-style: none;
@@ -52,7 +54,6 @@ body {
 }
 .content .form-container {
   margin-bottom: 20px;
-  text-align: left;
 }
 .content .form-container h2 {
   color: #4CAF50;
@@ -101,47 +102,24 @@ body {
 .content .form-container .input-container button:hover {
   background-color: #45a049;
 }
-.content .table-container {
-  overflow-x: auto;
-}
-.content .table-container table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-.content .table-container table th, .content .table-container table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-.content .table-container table th {
-  background-color: #4CAF50;
-  color: white;
-}
-.content .table-container table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-.content .table-container table tr:hover {
-  background-color: #f1f1f1;
-}
 
 .table-container {
-  margin-top: 20px;
+  margin: 20px 0;
   overflow-x: auto;
 }
 .table-container table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: center;
 }
 .table-container table th, .table-container table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 10px;
 }
 .table-container table th {
   background-color: #4CAF50;
   color: white;
+  font-weight: bold;
 }
 .table-container table tr:nth-child(even) {
   background-color: #f9f9f9;
@@ -149,17 +127,74 @@ body {
 .table-container table tr:hover {
   background-color: #f1f1f1;
 }
-
-form button {
-  background-color: #FF5722;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
+.table-container table td {
+  vertical-align: middle;
 }
-form button:hover {
-  background-color: #E64A19;
+.table-container table td.action-cell a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.table-container table td.action-cell a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.wifi-table td a {
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
+}
+.wifi-table td a:hover {
+  color: #45a049;
+  text-decoration: underline;
+}
+
+.action-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.action-container .add-button, .action-container .delete-all-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+.action-container .add-button {
+  background-color: #007bff;
+}
+.action-container .add-button:hover {
+  background-color: #0056b3;
+}
+.action-container .delete-all-button {
+  background-color: #dc3545;
+  border: none;
+}
+.action-container .delete-all-button:hover {
+  background-color: #a71d2a;
+}
+
+.table-container td.action-cell a {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.table-container td.action-cell a:first-child {
+  margin-right: 5px;
+  background-color: #ffc107;
+  color: #000;
+}
+.table-container td.action-cell a:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+.table-container td.action-cell a:hover {
+  filter: brightness(85%);
 }
 
 #status-message {
@@ -180,6 +215,102 @@ form button:hover {
   margin-left: 10px;
   font-size: 14px;
   color: blue;
+}
+
+/* 북마크 추가 페이지 전용 스타일 */
+.bookmark-add-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.bookmark-add-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+.bookmark-add-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.bookmark-add-form button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bookmark-add-form button:hover {
+  background-color: #0056b3;
+}
+.bookmark-add-form .back-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}
+.bookmark-add-form .back-link:hover {
+  color: #0056b3;
+}
+
+/* 북마크 수정 페이지 전용 스타일 */
+.bookmark-edit-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.bookmark-edit-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+.bookmark-edit-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.bookmark-edit-form button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bookmark-edit-form button:hover {
+  background-color: #45a049;
+}
+.bookmark-edit-form .back-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}
+.bookmark-edit-form .back-link:hover {
+  color: #0056b3;
 }
 
 /*# sourceMappingURL=style.css.map */
