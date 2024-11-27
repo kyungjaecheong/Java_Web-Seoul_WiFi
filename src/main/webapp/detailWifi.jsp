@@ -1,4 +1,8 @@
 <%@ page import="api.ShowDetail" %>
+<%@ page import="bookmark.BookmarkGroup" %>
+<%@ page import="bookmark.BookmarkGroupDBTool" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +17,33 @@
         String mgrNo = request.getParameter("mgrNo");
         String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
 
+        List<BookmarkGroup> groups;
+        try {
+            groups = BookmarkGroupDBTool.getBookmarkGroups(dbPath);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    %>
+    <div class="bookmark-add-form">
+        <form action="bookmark_add_action.jsp" method="post" target="result-frame" id="bookmark-form">
+            <input type="hidden" name="mgrNo" value="<%= mgrNo %>">
+            <label for="groupId">북마크 그룹 선택 :</label>
+            <select name="groupId" id="groupId" required>
+                <% if (groups.isEmpty()) { %>
+                <option value="" disabled selected>그룹이 없습니다</option>
+                <% } else { %>
+                <% for (BookmarkGroup group : groups) { %>
+                <option value="<%= group.getId() %>"><%= group.getName() %></option>
+                <% } %>
+                <% } %>
+            </select>
+            <button type="submit">북마크 추가하기</button>
+        </form>
+    </div>
+    <!-- 결과 표시를 위한 iframe -->
+    <iframe name="result-frame" id="result-frame"></iframe>
+
+    <%
         try {
             // ShowDetail 클래스의 getWifiDetail 메서드 호출
             ShowDetail wifiDetail = ShowDetail.getWifiDetail(dbPath, mgrNo);

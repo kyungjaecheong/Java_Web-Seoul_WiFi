@@ -63,30 +63,72 @@ public class BookmarkGroupDBTool {
         }
     }
 
-    // 북마크 그룹 삭제
+    // 북마크 그룹 삭제 (관련 북마크도 함께 삭제)
     public static boolean deleteBookmarkGroup(String dbPath, int id) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
-        String query = "DELETE FROM bookmark_group WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(dbUrl);
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        // 그룹과 관련된 북마크 삭제 쿼리
+        String deleteBookmarksQuery = "DELETE FROM bookmark_list WHERE group_no = ?";
 
-            pstmt.setInt(1, id);
+        // 그룹 삭제 쿼리
+        String deleteGroupQuery = "DELETE FROM bookmark_group WHERE id = ?";
 
-            return pstmt.executeUpdate() > 0;
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            // 1. 그룹과 관련된 북마크 삭제
+            try (PreparedStatement deleteBookmarksStmt = conn.prepareStatement(deleteBookmarksQuery)) {
+                deleteBookmarksStmt.setInt(1, id);
+                deleteBookmarksStmt.executeUpdate();
+            }
+
+            // 2. 그룹 삭제
+            try (PreparedStatement deleteGroupStmt = conn.prepareStatement(deleteGroupQuery)) {
+                deleteGroupStmt.setInt(1, id);
+                int rowsAffected = deleteGroupStmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    conn.commit(); // 성공 시 커밋
+                    return true;
+                } else {
+                    conn.rollback(); // 실패 시 롤백
+                    return false;
+                }
+            } catch (SQLException e) {
+                conn.rollback(); // 오류 발생 시 롤백
+                throw e;
+            }
         }
     }
 
-    // 북마크 그룹 전체 삭제
+
+    // 북마크 그룹 전체 삭제 (관련 북마크도 함께 삭제)
     public static boolean deleteAllBookmarkGroups(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
-        String query = "DELETE FROM bookmark_group";
 
-        try (Connection conn = DriverManager.getConnection(dbUrl);
-             Statement stmt = conn.createStatement()) {
+        // 모든 북마크 삭제 쿼리
+        String deleteAllBookmarksQuery = "DELETE FROM bookmark_list";
 
-            // 삭제된 행 수를 반환
-            return stmt.executeUpdate(query) > 0;
+        // 모든 그룹 삭제 쿼리
+        String deleteAllGroupsQuery = "DELETE FROM bookmark_group";
+
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            try (Statement stmt = conn.createStatement()) {
+                // 1. 모든 북마크 삭제
+                stmt.executeUpdate(deleteAllBookmarksQuery);
+
+                // 2. 모든 그룹 삭제
+                stmt.executeUpdate(deleteAllGroupsQuery);
+
+                conn.commit(); // 성공 시 커밋
+                return true;
+            } catch (SQLException e) {
+                conn.rollback(); // 오류 발생 시 롤백
+                throw e;
+            }
         }
     }
+
 }

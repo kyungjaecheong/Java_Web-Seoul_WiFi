@@ -32,7 +32,7 @@
                     .findFirst()
                     .orElseThrow(() -> new Exception("ID에 해당하는 북마크 그룹을 찾을 수 없습니다."));
     %>
-    <form action="bookmark_group_edit_action.jsp" method="post" class="bookmark-edit-form">
+    <form action="bookmark_group_edit_action.jsp" method="post" class="bookmark-group-edit-form">
         <h2>북마크 그룹 수정</h2>
         <input type="hidden" name="id" value="<%= group.getId() %>">
         <label for="name">북마크 이름:</label>

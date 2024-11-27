@@ -18,7 +18,7 @@
     </div>
 </nav>
 <main class="content">
-    <form action="bookmark_group_add_action.jsp" method="post" class="bookmark-add-form">
+    <form action="bookmark_group_add_action.jsp" method="post" class="bookmark-group-add-form">
         <h2>북마크 그룹 추가</h2>
         <label for="name">북마크 이름:</label>
         <input type="text" name="name" id="name" required>
