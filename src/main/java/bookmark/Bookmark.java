@@ -12,4 +12,5 @@ public class Bookmark {
     private String bookmarkGroupName; // 북마크 그룹 이름
     private String wifiName;    // 와이파이명
     private String registerDttm; // 등록 일자
+    private String mgrNo;           // 와이파이 관리번호 (추가됨)
 }

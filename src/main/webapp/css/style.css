@@ -35,17 +35,30 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-}
-.navbar .navbar-container .nav-links li {
-  margin-left: 20px;
+  gap: 15px;
 }
 .navbar .navbar-container .nav-links li a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   color: white;
   font-size: 1rem;
+  font-weight: bold;
+  width: 180px;
+  height: 40px;
+  padding: 0;
+  border-radius: 6px;
+  background-color: #1E88E5;
+  border: 2px solid #1565C0;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .navbar .navbar-container .nav-links li a:hover {
-  color: #d9ffd9;
+  background-color: #1565C0;
+  transform: scale(1.05);
+}
+.navbar .navbar-container .nav-links li a:active {
+  background-color: #0D47A1;
 }
 
 .content {
@@ -146,6 +159,16 @@ body {
   font-weight: bold;
 }
 .wifi-table td a:hover {
+  color: #45a049;
+  text-decoration: underline;
+}
+
+.bookmark-table td a {
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
+}
+.bookmark-table td a:hover {
   color: #45a049;
   text-decoration: underline;
 }

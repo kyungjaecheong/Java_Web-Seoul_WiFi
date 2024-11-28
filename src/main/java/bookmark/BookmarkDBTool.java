@@ -44,7 +44,7 @@ public class BookmarkDBTool {
     public static List<Bookmark> getBookmarks(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query =
-            "SELECT b.id, bg.name AS bookmark_group_name, w.x_swifi_main_nm AS wifi_name, b.register_dttm "
+            "SELECT b.id, bg.name AS bookmark_group_name, w.x_swifi_main_nm AS wifi_name, b.register_dttm, b.mgr_no "
             + "FROM bookmark_list b "
             + "JOIN bookmark_group bg ON b.group_no = bg.id "
             + "JOIN public_wifi w ON b.mgr_no = w.x_swifi_mgr_no "
@@ -61,7 +61,8 @@ public class BookmarkDBTool {
                         rs.getInt("id"),
                         rs.getString("bookmark_group_name"),
                         rs.getString("wifi_name"),
-                        rs.getString("register_dttm")
+                        rs.getString("register_dttm"),
+                        rs.getString("mgr_no") // 추가된 mgrNo 필드
                 ));
             }
         }
@@ -70,7 +71,7 @@ public class BookmarkDBTool {
 
     public static Bookmark getBookmarkById(String dbPath, int id) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
-        String query = "SELECT b.id, g.name AS groupName, w.x_swifi_main_nm AS wifiName, b.register_dttm " +
+        String query = "SELECT b.id, g.name AS groupName, w.x_swifi_main_nm AS wifiName, b.register_dttm, b.mgr_no " +
                 "FROM bookmark_list b " +
                 "JOIN bookmark_group g ON b.group_no = g.id " +
                 "JOIN public_wifi w ON b.mgr_no = w.x_swifi_mgr_no " +
@@ -87,7 +88,8 @@ public class BookmarkDBTool {
                             rs.getInt("id"),
                             rs.getString("groupName"),
                             rs.getString("wifiName"),
-                            rs.getString("register_dttm")
+                            rs.getString("register_dttm"),
+                            rs.getString("mgr_no") // 추가된 mgrNo 필드
                     );
                 }
             }

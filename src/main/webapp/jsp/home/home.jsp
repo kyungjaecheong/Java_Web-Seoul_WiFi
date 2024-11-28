@@ -112,7 +112,18 @@
                             // 가장 가까운 와이파이 데이터를 가져옴
                             List<WifiLocation> wifiLocations = dbtool.WifiLocationTool.getNearestLocations(dbPath, latD, lntD);
 
-                            for (dbtool.WifiLocation wifi : wifiLocations) {
+                            if (wifiLocations.isEmpty()) {
+                                // 데이터가 없는 경우 메시지 출력
+                %>
+                <tr>
+                    <td colspan="17" style="text-align: center; color: red;">
+                        불러온 데이터가 없습니다. Open API 정보 가져오기를 실행해주세요.
+                    </td>
+                </tr>
+                <%
+                            } else {
+                                // 데이터가 있는 경우 테이블 출력
+                                for (dbtool.WifiLocation wifi : wifiLocations) {
                 %>
                 <tr>
                     <td><%= String.format("%.4f", wifi.getDistance()) %></td>
@@ -138,6 +149,7 @@
                     <td><%= wifi.getWorkDttm() %></td>
                 </tr>
                 <%
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace(System.out);
