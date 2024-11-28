@@ -1,8 +1,8 @@
 package dbtool;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.*;
+
 
 public class HistoryDBTool {
     private static final String DB_URL = "jdbc:sqlite:"; // SQLite URL
@@ -32,4 +32,74 @@ public class HistoryDBTool {
             throw new Exception("Error while inserting location into the database: " + e.getMessage(), e);
         }
     }
+
+    /**
+     * 데이터베이스에서 위치 히스토리 가져오기
+     *
+     * @param dbPath SQLite DB 파일 경로
+     * @return 위치 히스토리 리스트
+     * @throws Exception 예외 발생 시
+     */
+    public static List<History> getHistoryList(String dbPath) throws Exception {
+        String fullDbUrl = DB_URL + dbPath;
+        String querySQL = "SELECT id, lat, lnt, search_dttm FROM search_wifi ORDER BY id DESC";
+        List<History> historyList = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(fullDbUrl);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(querySQL)) {
+
+            while (rs.next()) {
+                History history = new History(
+                        rs.getInt("id"),
+                        rs.getString("lat"),
+                        rs.getString("lnt"),
+                        rs.getString("search_dttm")
+                );
+                historyList.add(history);
+            }
+        } catch (Exception e) {
+            throw new Exception("Error while fetching history from the database: " + e.getMessage(), e);
+        }
+        return historyList;
+    }
+
+    /**
+     * 데이터베이스에서 특정 ID의 위치 히스토리 삭제
+     *
+     * @param dbPath SQLite DB 파일 경로
+     * @param id     삭제할 히스토리의 ID
+     * @return 삭제 성공 여부
+     * @throws Exception 예외 발생 시
+     */
+    public static boolean deleteHistoryById(String dbPath, int id) throws Exception {
+        String fullDbUrl = DB_URL + dbPath;
+        String deleteSQL = "DELETE FROM search_wifi WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(fullDbUrl);
+             PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
+
+            pstmt.setInt(1, id);
+
+            int rowsDeleted = pstmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            throw new Exception("Error while deleting history from the database: " + e.getMessage(), e);
+        }
+    }
+
+    public static boolean deleteAllHistory(String dbPath) throws Exception {
+        String fullDbUrl = DB_URL + dbPath;
+        String deleteSQL = "DELETE FROM search_wifi";
+
+        try (Connection conn = DriverManager.getConnection(fullDbUrl);
+             Statement stmt = conn.createStatement()) {
+
+            int rowsDeleted = stmt.executeUpdate(deleteSQL);
+            return rowsDeleted > 0; // 삭제된 행이 있을 경우 true 반환
+        } catch (Exception e) {
+            throw new Exception("Error while deleting all history from the database: " + e.getMessage(), e);
+        }
+    }
+
 }

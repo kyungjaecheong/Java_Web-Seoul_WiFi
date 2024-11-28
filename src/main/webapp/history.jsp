@@ -1,4 +1,6 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="dbtool.History" %>
+<%@ page import="dbtool.HistoryDBTool" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,7 +23,14 @@
 
     <!-- 메인 콘텐츠 -->
     <main class="content">
-        <h2>위치 히스토리 목록</h2>
+
+        <!-- 전체 삭제 버튼 -->
+        <div class="action-container">
+            <h2>위치 히스토리 목록</h2>
+            <form action="delete_all_history.jsp" method="post" style="display: inline;">
+                <button type="submit" class="delete-all-button">전체 삭제</button>
+            </form>
+        </div>
 
         <!-- 히스토리 테이블 -->
         <div class="table-container">
@@ -29,50 +38,32 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>X 좌표</th>
-                    <th>Y 좌표</th>
+                    <th>Y 좌표(위도)</th>
+                    <th>X 좌표(경도)</th>
                     <th>조회일자</th>
                     <th>비고</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
-                    // SQLite 데이터베이스 연결
                     String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
-                    String dbUrl = "jdbc:sqlite:" + dbPath;
-
                     try {
-                        Class.forName("org.sqlite.JDBC");
-                        Connection conn = DriverManager.getConnection(dbUrl);
-                        Statement stmt = conn.createStatement();
-
-                        // search_wifi 테이블에서 데이터 조회
-                        String sql = "SELECT id, lat, lnt, search_dttm FROM search_wifi ORDER BY id DESC";
-                        ResultSet rs = stmt.executeQuery(sql);
-
-                        while (rs.next()) {
-                            int id = rs.getInt("id");
-                            String lat = rs.getString("lat");
-                            String lnt = rs.getString("lnt");
-                            String searchDttm = rs.getString("search_dttm");
+                        List<History> historyList = HistoryDBTool.getHistoryList(dbPath);
+                        for (History history : historyList) {
                 %>
                 <tr>
-                    <td><%= id %></td>
-                    <td><%= lat %></td>
-                    <td><%= lnt %></td>
-                    <td><%= searchDttm %></td>
-                    <td>
+                    <td><%= history.getId() %></td>
+                    <td><%= history.getLat() %></td>
+                    <td><%= history.getLnt() %></td>
+                    <td><%= history.getSearchDttm() %></td>
+                    <td class="action-cell">
                         <form method="post" action="deleteHistory.jsp" style="display: inline;">
-                            <input type="hidden" name="id" value="<%= id %>">
-                            <button type="submit">삭제</button>
+                            <a href="deleteHistory.jsp?id=<%= history.getId() %>" class="delete-button">삭제</a>
                         </form>
                     </td>
                 </tr>
                 <%
                     }
-                    rs.close();
-                    stmt.close();
-                    conn.close();
                 } catch (Exception e) {
                     e.printStackTrace(System.out);
                 %>
