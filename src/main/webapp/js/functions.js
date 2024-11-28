@@ -97,7 +97,7 @@ function loadOpenAPI() {
 
 // 상세 정보 가져오기 (팝업)
 function openDetailPopup(mgrNo) {
-    const popupUrl = `detailWifi.jsp?mgrNo=${encodeURIComponent(mgrNo)}`;
+    const popupUrl = `../detailWifi.jsp?mgrNo=${encodeURIComponent(mgrNo)}`;
     const popupOptions = "width=1200,height=800,scrollbars=yes,resizable=yes";
     window.open(popupUrl, "WifiDetailPopup", popupOptions);
 }

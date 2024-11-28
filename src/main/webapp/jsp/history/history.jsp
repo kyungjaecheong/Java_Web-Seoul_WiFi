@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>위치 히스토리 목록</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
 </head>
 <body>
     <!-- 네비게이션 바 -->
@@ -13,10 +13,10 @@
         <div class="navbar-container">
             <h1 class="logo">Wi-Fi Service</h1>
             <ul class="nav-links">
-                <li><a href="home.jsp">Home</a></li>
+                <li><a href="../home/home.jsp">Home</a></li>
                 <li><a href="history.jsp">위치 History</a></li>
-                <li><a href="bookmark.jsp">WiFi Bookmark</a></li>
-                <li><a href="bookmark_group.jsp">Bookmark 그룹 관리</a></li>
+                <li><a href="../bookmark/bookmark.jsp">WiFi Bookmark</a></li>
+                <li><a href="../bookmark_group/bookmark_group.jsp">Bookmark 그룹 관리</a></li>
             </ul>
         </div>
     </nav>
@@ -79,7 +79,7 @@
     </main>
 
     <!-- JavaScript 파일 불러오기 -->
-    <script src="js/functions.js"></script>
+    <script src="../../js/functions.js"></script>
 
 </body>
 </html>

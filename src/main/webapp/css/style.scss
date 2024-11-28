@@ -12,7 +12,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #4CAF50; // 차분한 녹색 배경
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -37,23 +37,39 @@ body {
       margin: 0;
       padding: 0;
       display: flex;
+      gap: 15px; // 버튼 간 간격
 
       li {
-        margin-left: 20px;
-
         a {
+          display: inline-flex; // 버튼 내 텍스트 중앙 정렬
+          justify-content: center;
+          align-items: center;
           text-decoration: none;
           color: white;
           font-size: 1rem;
+          font-weight: bold;
+          width: 180px; // 고정된 너비
+          height: 40px; // 고정된 높이
+          padding: 0; // 패딩 제거로 높이 균일화
+          border-radius: 6px;
+          background-color: #1E88E5;
+          border: 2px solid #1565C0;
+          transition: background-color 0.3s ease, transform 0.2s ease;
 
           &:hover {
-            color: #d9ffd9;
+            background-color: #1565C0; // 호버 시 색상 변경
+            transform: scale(1.05); // 약간 확대 효과
+          }
+
+          &:active {
+            background-color: #0D47A1; // 클릭 시 색상 변경
           }
         }
       }
     }
   }
 }
+
 
 // 콘텐츠 영역
 .content {
@@ -170,6 +186,18 @@ body {
 
 // 와이파이 테이블 스타일
 .wifi-table td a {
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
+
+  &:hover {
+    color: #45a049;
+    text-decoration: underline;
+  }
+}
+
+// 북마크 테이블 스타일
+.bookmark-table td a {
   text-decoration: none;
   color: #4CAF50;
   font-weight: bold;

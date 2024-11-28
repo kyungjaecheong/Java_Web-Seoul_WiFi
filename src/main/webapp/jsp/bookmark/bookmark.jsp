@@ -5,7 +5,7 @@
 <html>
 <head>
   <title>북마크 목록</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
 </head>
 <body>
 
@@ -14,10 +14,10 @@
   <div class="navbar-container">
     <h1 class="logo">Wi-Fi Service</h1>
     <ul class="nav-links">
-      <li><a href="home.jsp">Home</a></li>
-      <li><a href="history.jsp">위치 History</a></li>
+      <li><a href="../home/home.jsp">Home</a></li>
+      <li><a href="../history/history.jsp">위치 History</a></li>
       <li><a href="bookmark.jsp">WiFi Bookmark</a></li>
-      <li><a href="bookmark_group.jsp">Bookmark 그룹 관리</a></li>
+      <li><a href="../bookmark_group/bookmark_group.jsp">Bookmark 그룹 관리</a></li>
     </ul>
   </div>
 </nav>
@@ -32,7 +32,7 @@
     </form>
   </div>
   <div class="table-container">
-    <table>
+    <table class="bookmark-table">
       <thead>
       <tr>
         <th>ID</th>
@@ -52,7 +52,11 @@
       <tr>
         <td><%= bookmark.getId() %></td>
         <td><%= bookmark.getBookmarkGroupName() %></td>
-        <td><%= bookmark.getWifiName() %></td>
+        <td>
+          <a href="#" onclick="openDetailPopup('<%= bookmark.getMgrNo() %>'); return false;">
+            <%= bookmark.getWifiName() %>
+          </a>
+        </td>
         <td><%= bookmark.getRegisterDttm() %></td>
         <td class="action-cell">
           <a href="bookmark_delete.jsp?id=<%= bookmark.getId() %>" class="delete-button">삭제</a>
@@ -69,5 +73,7 @@
     </table>
   </div>
 </main>
+<!-- JavaScript 파일 불러오기 -->
+<script src="../../js/functions.js"></script>
 </body>
 </html>

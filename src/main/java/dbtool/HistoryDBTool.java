@@ -88,17 +88,23 @@ public class HistoryDBTool {
         }
     }
 
-    public static boolean deleteAllHistory(String dbPath) throws Exception {
-        String fullDbUrl = DB_URL + dbPath;
-        String deleteSQL = "DELETE FROM search_wifi";
+    public static boolean deleteAllHistory(String dbPath) throws SQLException {
+        String dbUrl = "jdbc:sqlite:" + dbPath;
 
-        try (Connection conn = DriverManager.getConnection(fullDbUrl);
-             Statement stmt = conn.createStatement()) {
+        // 히스토리 전체 삭제 쿼리
+        String deleteAllHistoryQuery = "DELETE FROM search_wifi";
 
-            int rowsDeleted = stmt.executeUpdate(deleteSQL);
-            return rowsDeleted > 0; // 삭제된 행이 있을 경우 true 반환
-        } catch (Exception e) {
-            throw new Exception("Error while deleting all history from the database: " + e.getMessage(), e);
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            try (Statement stmt = conn.createStatement()) {
+                int rowsDeleted = stmt.executeUpdate(deleteAllHistoryQuery);
+                conn.commit(); // 성공 시 커밋
+                return true;
+            } catch (SQLException e) {
+                conn.rollback(); // 오류 발생 시 롤백
+                throw e;
+            }
         }
     }
 
