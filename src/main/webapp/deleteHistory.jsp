@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.sql.*" %>
+<%@ page import="dbtool.HistoryDBTool" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,29 +7,21 @@
 </head>
 <body>
     <%
-        String id = request.getParameter("id");
+        String idParam = request.getParameter("id");
         String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
         String dbUrl = "jdbc:sqlite:" + dbPath;
 
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection(dbUrl);
-            Statement stmt = conn.createStatement();
-
-            // 데이터 삭제
-            String sql = "DELETE FROM search_wifi WHERE id = " + id;
-            stmt.executeUpdate(sql);
-
-            stmt.close();
-            conn.close();
-
-            // 삭제 후 위치 히스토리 목록 페이지로 리다이렉트
-            response.sendRedirect("history.jsp");
+            int id = Integer.parseInt(idParam);
+            boolean isDeleted = HistoryDBTool.deleteHistoryById(dbPath, id);
+            if (isDeleted) {
+                response.sendRedirect("history.jsp");
+            } else {
+                out.println("<p style='color: red;'>삭제 실패: 해당 ID가 존재하지 않습니다.</p>");
+            }
         } catch (Exception e) {
             e.printStackTrace(System.err);
-    %>
-    <p style="color: red;">히스토리 삭제 중 오류가 발생했습니다.</p>
-    <%
+            out.println("<p style='color: red;'>삭제 중 오류가 발생했습니다: " + e.getMessage() + "</p>");
         }
     %>
 </body>
