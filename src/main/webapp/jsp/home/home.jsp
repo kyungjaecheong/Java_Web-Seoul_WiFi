@@ -6,7 +6,7 @@
 <head>
     <title>서울시 공공와이파이 정보 서비스</title>
     <!-- CSS 파일 불러오기 -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
 
 </head>
 <body>
@@ -16,9 +16,9 @@
             <h1 class="logo">Wi-Fi Service</h1>
             <ul class="nav-links">
                 <li><a href="home.jsp">Home</a></li>
-                <li><a href="history.jsp">위치 History</a></li>
-                <li><a href="bookmark.jsp">WiFi Bookmark</a></li>
-                <li><a href="bookmark_group.jsp">Bookmark 그룹 관리</a></li>
+                <li><a href="../history/history.jsp">위치 History</a></li>
+                <li><a href="../bookmark/bookmark.jsp">WiFi Bookmark</a></li>
+                <li><a href="../bookmark_group/bookmark_group.jsp">Bookmark 그룹 관리</a></li>
             </ul>
         </div>
     </nav>
@@ -154,7 +154,7 @@
 
 
     <!-- JavaScript 파일 불러오기 -->
-    <script src="js/functions.js"></script>
+    <script src="../../js/functions.js"></script>
 
 </body>
 </html>

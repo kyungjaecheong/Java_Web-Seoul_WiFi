@@ -7,7 +7,7 @@
 <html>
 <head>
     <title>와이파이 상세 정보</title>
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="../../css/popup.css">
 </head>
 <body>
 <div class="popup-content">
@@ -25,7 +25,7 @@
         }
     %>
     <div class="bookmark-add-form">
-        <form action="bookmark_add_action.jsp" method="post" target="result-frame" id="bookmark-form">
+        <form action="../bookmark/bookmark_add_action.jsp" method="post" target="result-frame" id="bookmark-form">
             <input type="hidden" name="mgrNo" value="<%= mgrNo %>">
             <label for="groupId">북마크 그룹 선택 :</label>
             <select name="groupId" id="groupId" required>

@@ -111,12 +111,21 @@ public class BookmarkDBTool {
 
     public static boolean deleteAllBookmarks(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
-        String query = "DELETE FROM bookmark_list";
 
-        try (Connection conn = DriverManager.getConnection(dbUrl);
-             Statement stmt = conn.createStatement()) {
-            int rowsDeleted = stmt.executeUpdate(query);
-            return rowsDeleted > 0; // 삭제된 행이 있는 경우 true 반환
+        // 북마크 전체 삭제 쿼리
+        String deleteAllBookmarksQuery = "DELETE FROM bookmark_list";
+
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            try (Statement stmt = conn.createStatement()) {
+                int rowsDeleted = stmt.executeUpdate(deleteAllBookmarksQuery);
+                conn.commit(); // 성공 시 커밋
+                return true;
+            } catch (SQLException e) {
+                conn.rollback(); // 오류 발생 시 롤백
+                throw e;
+            }
         }
     }
 
