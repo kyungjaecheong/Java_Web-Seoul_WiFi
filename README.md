@@ -1,6 +1,5 @@
 # Java_Web-Seoul_WiFi
 - 내 위치 기반 공공 와이파이 정보(서울시 Open API)를 제공하는 JSP 웹서비스(WAS) 개발
-- ZeroBase BackEnd School - Java/JSP Mission 1 Project
 
 ![image](https://github.com/user-attachments/assets/3de1885d-4f50-499f-9d58-5388b8c04c18)
 
