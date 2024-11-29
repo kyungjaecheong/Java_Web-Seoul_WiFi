@@ -2,10 +2,6 @@
 - 내 위치 기반 공공 와이파이 정보(서울시 Open API)를 제공하는 JSP 웹서비스(WAS) 개발
 - ZeroBase BackEnd School - Java/JSP Mission 1 Project
 
-## 프로젝트 결과물 (시연 영상)
-
-> [시연 영상(Project_Demo_Video.mp4)](Project_Demo_Video.mp4)
-
 <div align=left>
 
 ## Tech Stack
@@ -65,8 +61,6 @@
   - WiFi 정보 조회, 상세 정보 확인 기능 구현
   - 사용자 위치 기록 및 북마크 관리 기능 구현
 
-## 프로젝트 흐름도
-
 ## 주요 기능
 
 ### 1. **데이터베이스 관리**
@@ -94,8 +88,6 @@
 - 북마크 그룹 수정 및 삭제 지원
 - 중복 북마크 방지 기능 제공
 
-
-
 # Project Structure 프로젝트 구조
 
 ## 1. 데이터베이스 구조 (ERD)
@@ -107,7 +99,7 @@
 
 ## 2. 프로젝트 폴더 구조
 
-```bash
+```
 .
 |-- java
 |   |-- api
@@ -169,7 +161,7 @@
 15 directories, 41 files
 ```
 
-## 3. 웹 화면 구성
+## 3. 프로그램 결과물 (웹 화면 캡쳐)
 ### 메인 페이지
 - WiFi 검색 폼과 Open API 데이터 로드 버튼 제공
 - 입력한 위치 기준으로 가까운 WiFi 정보 20개 리스트 제공
