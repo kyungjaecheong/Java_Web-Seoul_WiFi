@@ -25,6 +25,7 @@
 
     <!-- 메인 컨텐츠 -->
     <main class="content">
+        <!-- 검색 폼 -->
         <div class="form-container">
             <!-- 타이틀 -->
             <h2>와이파이 정보 구하기</h2>
@@ -35,7 +36,7 @@
             </div>
             <p id="status-message" class=""></p>
 
-            <!-- LAT, LNT 입력 -->
+            <!-- 위도(LAT)와 경도(LNT) 입력 폼 -->
             <form id="location-form">
                 <div class="input-container">
                     <label for="lat">LAT (위도):</label>
@@ -53,14 +54,17 @@
 
         <!-- 히스토리 DB 삽입 로직 -->
         <%
+            // 위도, 경도, saveLocation 파라미터 값 가져오기
             String lat = request.getParameter("lat");
             String lnt = request.getParameter("lnt");
             String saveLocation = request.getParameter("saveLocation");
 
+            // 위도와 경도가 입력되었고 saveLocation 버튼이 눌린 경우
             if (lat != null && lnt != null && saveLocation != null) {
                 String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
 
                 try {
+                    // 위도와 경도를 히스토리 DB에 삽입
                     boolean isInserted = HistoryDBTool.insertLocation(dbPath, lat, lnt);
                     if (isInserted) {
                         out.println("<p style='color: green;'>위치 정보가 성공적으로 저장되었습니다.</p>");
@@ -74,7 +78,7 @@
             }
         %>
 
-        <!-- 표 -->
+        <!-- 근처 WiFi 정보 테이블 -->
         <div class="table-container">
             <table class="wifi-table">
                 <thead>
@@ -100,12 +104,14 @@
                 </thead>
                 <tbody>
                 <%
+                    // 위도와 경도가 입력된 경우 근처 WiFi 정보 가져오기
                     String latStr = request.getParameter("lat");
                     String lntStr = request.getParameter("lnt");
                     String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
 
                     if (latStr != null && lntStr != null) {
                         try {
+                            // 위도와 경도를 Double 타입으로 변환
                             double latD = Double.parseDouble(latStr);
                             double lntD = Double.parseDouble(lntStr);
 
@@ -113,7 +119,7 @@
                             List<WifiLocation> wifiLocations = dbtool.WifiLocationTool.getNearestLocations(dbPath, latD, lntD);
 
                             if (wifiLocations.isEmpty()) {
-                                // 데이터가 없는 경우 메시지 출력
+                                // WiFi 데이터가 없는 경우 메시지 출력
                 %>
                 <tr>
                     <td colspan="17" style="text-align: center; color: red;">
@@ -122,7 +128,7 @@
                 </tr>
                 <%
                             } else {
-                                // 데이터가 있는 경우 테이블 출력
+                                // WiFi 데이터가 있는 경우 테이블에 출력 (20개까지)
                                 for (dbtool.WifiLocation wifi : wifiLocations) {
                 %>
                 <tr>
@@ -152,10 +158,12 @@
                                 }
                             }
                         } catch (Exception e) {
+                            // 오류 발생 시 메시지 출력
                             e.printStackTrace(System.out);
                             out.println("<tr><td colspan='17' style='color: red;'>데이터를 불러오는 중 오류가 발생했습니다.</td></tr>");
                         }
                     } else {
+                        // 위도와 경도가 입력되지 않은 경우 안내 메시지 출력
                         out.println("<tr><td colspan='17' style='text-align: center;'>와이파이 데이터를 조회하세요.</td></tr>");
                     }
                 %>

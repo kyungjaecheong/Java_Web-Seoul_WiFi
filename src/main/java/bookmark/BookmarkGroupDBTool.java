@@ -4,9 +4,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BookmarkGroupDBTool<br><br>
+ * 북마크 그룹 관련 데이터베이스 작업을 처리하는 클래스입니다.<br><br>
+ * 북마크 그룹 추가, 수정, 삭제, 조회 등의 기능을 제공합니다.
+ */
 public class BookmarkGroupDBTool {
 
-    // 북마크 그룹 목록 가져오기
+    /**
+     * 데이터베이스에서 모든 북마크 그룹 목록을 가져옵니다.
+     *
+     * @param dbPath SQLite 데이터베이스 경로
+     * @return 북마크 그룹 리스트
+     * @throws SQLException SQL 예외 발생 시
+     */
     public static List<BookmarkGroup> getBookmarkGroups(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query = "SELECT * FROM bookmark_group ORDER BY order_no";
@@ -32,7 +43,15 @@ public class BookmarkGroupDBTool {
         return groups;
     }
 
-    // 북마크 그룹 추가
+    /**
+     * 데이터베이스에 새로운 북마크 그룹을 추가합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 경로
+     * @param name   북마크 그룹 이름
+     * @param orderNo 그룹 표시 순서
+     * @return 추가 성공 여부
+     * @throws SQLException SQL 예외 발생 시
+     */
     public static boolean addBookmarkGroup(String dbPath, String name, int orderNo) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query = "INSERT INTO bookmark_group (name, order_no, register_dttm) VALUES (?, ?, datetime('now'))";
@@ -47,7 +66,16 @@ public class BookmarkGroupDBTool {
         }
     }
 
-    // 북마크 그룹 수정
+    /**
+     * 데이터베이스에 저장된 북마크 그룹을 수정합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 경로
+     * @param id     수정할 북마크 그룹의 ID
+     * @param name   새로운 북마크 그룹 이름
+     * @param orderNo 새로운 표시 순서
+     * @return 수정 성공 여부
+     * @throws SQLException SQL 예외 발생 시
+     */
     public static boolean updateBookmarkGroup(String dbPath, int id, String name, int orderNo) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query = "UPDATE bookmark_group SET name = ?, order_no = ?, update_dttm = datetime('now') WHERE id = ?";
@@ -63,7 +91,14 @@ public class BookmarkGroupDBTool {
         }
     }
 
-    // 북마크 그룹 삭제 (관련 북마크도 함께 삭제)
+    /**
+     * 특정 북마크 그룹과 관련된 북마크를 포함하여 삭제합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 경로
+     * @param id     삭제할 북마크 그룹의 ID
+     * @return 삭제 성공 여부
+     * @throws SQLException SQL 예외 발생 시
+     */
     public static boolean deleteBookmarkGroup(String dbPath, int id) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
 
@@ -102,7 +137,13 @@ public class BookmarkGroupDBTool {
     }
 
 
-    // 북마크 그룹 전체 삭제 (관련 북마크도 함께 삭제)
+    /**
+     * 모든 북마크 그룹과 관련된 북마크를 삭제합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 경로
+     * @return 삭제 성공 여부
+     * @throws SQLException SQL 예외 발생 시
+     */
     public static boolean deleteAllBookmarkGroups(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
 

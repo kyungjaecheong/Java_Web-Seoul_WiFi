@@ -16,12 +16,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SampleDB 클래스는 서울시 공공와이파이 API 데이터를 가져와
+ * SQLite 데이터베이스에 저장하는 유틸리티 클래스입니다.
+ */
 public class SampleDB {
 
-    private static final String DB_PATH = "src/main/webapp/WEB-INF/db/sample.db";
+    private static final String DB_PATH = "src/main/webapp/WEB-INF/db/sample.db";   // 데이터베이스 경로
     private static final String API_URL = "http://openapi.seoul.go.kr:8088/696474764564616e39307548544a75/json/TbPublicWifiInfo/";
 
-    // 테이블 초기화 (없으면 생성)
+    /**
+     * 데이터베이스 초기화 - 테이블 생성 (테이블이 없으면 생성)
+     *
+     * @param conn SQLite 데이터베이스 연결 객체
+     * @throws Exception 테이블 생성 실패 시 예외 발생
+     */
     private static void initializeDatabase(Connection conn) throws Exception {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS public_wifi ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -43,19 +52,33 @@ public class SampleDB {
                 + "work_dttm TIMESTAMP"
                 + ");";
         Statement stmt = conn.createStatement();
-        stmt.execute(createTableSQL);
+        stmt.execute(createTableSQL);   // 테이블 생성 쿼리 실행
         stmt.close();
     }
 
-    // 테이블 데이터 초기화 (TRUNCATE)
+    /**
+     * 데이터베이스의 기존 데이터를 초기화 (삭제)
+     *
+     * @param conn SQLite 데이터베이스 연결 객체
+     * @throws Exception 데이터 초기화 실패 시 예외 발생
+     */
     private static void truncateTable(Connection conn) throws Exception {
         try (Statement stmt = conn.createStatement()) {
+            // 테이블 데이터 삭제
             stmt.execute("DELETE FROM public_wifi;");
+            // AUTO_INCREMENT 초기화
             stmt.execute("DELETE FROM sqlite_sequence WHERE name='public_wifi';");
         }
     }
 
-    // Open API 데이터 요청 및 파싱
+    /**
+     * Open API로부터 데이터를 요청하고 파싱하여 WifiInfo 객체 리스트를 반환합니다.
+     *
+     * @param start 데이터 시작 인덱스
+     * @param end 데이터 종료 인덱스
+     * @return WifiInfo 객체 리스트
+     * @throws Exception API 요청 실패 또는 파싱 실패 시 예외 발생
+     */
     private static List<WifiInfo> fetchWifiData(int start, int end) throws Exception {
         OkHttpClient client = new OkHttpClient();
         String url = API_URL + start + "/" + end;
@@ -73,7 +96,7 @@ public class SampleDB {
                     throw new Exception("API 요청 실패: 코드 " + resultCode);
                 }
 
-                // JSON 데이터를 파싱하여 리스트 반환
+                // JSON 데이터를 파싱하여 WifiInfo 리스트로 변환
                 JsonArray rows = tbPublicWifiInfo.getAsJsonArray("row");
                 List<WifiInfo> wifiList = new ArrayList<>();
                 for (JsonElement row : rows) {
@@ -104,13 +127,18 @@ public class SampleDB {
         }
     }
 
-    // 전체 데이터를 가져오기
+    /**
+     * Open API를 통해 모든 데이터를 가져옵니다.
+     *
+     * @return WifiInfo 객체 리스트
+     * @throws Exception API 요청 실패 시 예외 발생
+     */
     private static List<WifiInfo> fetchAllWifiData() throws Exception {
         List<WifiInfo> allWifiData = new ArrayList<>();
 
         // 첫 번째 요청으로 list_total_count 가져오기
         OkHttpClient client = new OkHttpClient();
-        String url = API_URL + "1/1"; // 첫 번째 요청은 총 데이터 수를 가져오기 위한 요청
+        String url = API_URL + "1/1"; // 총 데이터 수 확인 요청
         Request request = new Request.Builder().url(url).build();
 
         int totalCount;
@@ -148,7 +176,13 @@ public class SampleDB {
         return allWifiData;
     }
 
-    // 데이터베이스에 데이터 삽입
+    /**
+     * 데이터베이스에 데이터를 삽입합니다.
+     *
+     * @param conn SQLite 데이터베이스 연결 객체
+     * @param wifiList 삽입할 WifiInfo 리스트
+     * @throws Exception 데이터 삽입 실패 시 예외 발생
+     */
     private static void insertData(Connection conn, List<WifiInfo> wifiList) throws Exception {
         // 동기화 모드 최적화 (트랜잭션 전에 실행)
         try (Statement stmt = conn.createStatement()) {
@@ -199,7 +233,11 @@ public class SampleDB {
     }
 
 
-    // Main 메서드
+    /**
+     * 메인 메서드 - 프로그램 실행 진입점
+     *
+     * @param args 실행 인자
+     */
     public static void main(String[] args) {
         File dbFile = new File(DB_PATH);
         boolean dbExists = dbFile.exists();

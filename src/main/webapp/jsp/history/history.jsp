@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>위치 히스토리 목록</title>
+    <!-- 스타일 시트 파일 불러오기 -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
 </head>
 <body>
@@ -12,6 +13,7 @@
     <nav class="navbar">
         <div class="navbar-container">
             <h1 class="logo">Wi-Fi Service</h1>
+            <!-- 네비게이션 링크 -->
             <ul class="nav-links">
                 <li><a href="../home/home.jsp">Home</a></li>
                 <li><a href="history.jsp">위치 History</a></li>
@@ -27,12 +29,13 @@
         <!-- 전체 삭제 버튼 -->
         <div class="action-container">
             <h2>위치 히스토리 목록</h2>
+            <!-- 히스토리 전체 삭제 버튼 -->
             <form action="delete_all_history.jsp" method="post" style="display: inline;">
                 <button type="submit" class="delete-all-button">전체 삭제</button>
             </form>
         </div>
 
-        <!-- 히스토리 테이블 -->
+        <!-- 히스토리 데이터 테이블 -->
         <div class="table-container">
             <table>
                 <thead>
@@ -46,9 +49,12 @@
                 </thead>
                 <tbody>
                 <%
+                    // 데이터베이스 경로 설정
                     String dbPath = application.getRealPath("/WEB-INF/db/wifiDatabase.db");
                     try {
+                        // DB에서 위치 히스토리 목록 가져오기
                         List<History> historyList = HistoryDBTool.getHistoryList(dbPath);
+                        // 히스토리 데이터 출력
                         for (History history : historyList) {
                 %>
                 <tr>
@@ -57,6 +63,7 @@
                     <td><%= history.getLnt() %></td>
                     <td><%= history.getSearchDttm() %></td>
                     <td class="action-cell">
+                        <!-- 히스토리 삭제 버튼 -->
                         <form method="post" action="deleteHistory.jsp" style="display: inline;">
                             <a href="deleteHistory.jsp?id=<%= history.getId() %>" class="delete-button">삭제</a>
                         </form>
