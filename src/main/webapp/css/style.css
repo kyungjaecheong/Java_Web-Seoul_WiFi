@@ -47,7 +47,6 @@ body {
   font-weight: bold;
   width: 180px;
   height: 40px;
-  padding: 0;
   border-radius: 6px;
   background-color: #1E88E5;
   border: 2px solid #1565C0;
@@ -220,26 +219,6 @@ body {
   filter: brightness(85%);
 }
 
-#status-message {
-  margin-top: 10px;
-  font-size: 14px;
-}
-#status-message.loading {
-  color: blue;
-}
-#status-message.success {
-  color: green;
-}
-#status-message.error {
-  color: red;
-}
-
-#loading-spinner {
-  margin-left: 10px;
-  font-size: 14px;
-  color: blue;
-}
-
 /* 북마크 그룹 추가 페이지 전용 스타일 */
 .bookmark-group-add-form {
   max-width: 500px;
@@ -396,6 +375,26 @@ body {
 }
 .bookmark-delete-container .delete-form .back-link:hover {
   background-color: #5a6268;
+}
+
+#status-message {
+  margin-top: 10px;
+  font-size: 14px;
+}
+#status-message.loading {
+  color: blue;
+}
+#status-message.success {
+  color: green;
+}
+#status-message.error {
+  color: red;
+}
+
+#loading-spinner {
+  margin-left: 10px;
+  font-size: 14px;
+  color: blue;
 }
 
 /*# sourceMappingURL=style.css.map */
