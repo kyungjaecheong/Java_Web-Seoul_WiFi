@@ -4,9 +4,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BookmarkDBTool 클래스는 북마크 관련 데이터베이스 작업을 처리합니다.<br><br>
+ * 기능:<br>
+ * 1. 북마크 추가<br>
+ * 2. 북마크 목록 조회<br>
+ * 3. 북마크 ID로 조회<br>
+ * 4. 북마크 삭제<br>
+ * 5. 모든 북마크 삭제<br>
+ */
 public class BookmarkDBTool {
 
-    // 북마크 추가 (중복 방지)
+    /**
+     * 북마크를 데이터베이스에 추가합니다. (중복 방지)
+     *
+     * @param dbPath SQLite 데이터베이스 파일 경로
+     * @param groupNo 북마크 그룹 번호
+     * @param mgrNo 와이파이 관리번호
+     * @return 추가 성공 여부 (true: 성공, false: 중복으로 실패)
+     * @throws SQLException 데이터베이스 작업 중 예외 발생 시
+     */
     public static boolean addBookmark(String dbPath, int groupNo, String mgrNo) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
 
@@ -40,7 +57,13 @@ public class BookmarkDBTool {
 
 
 
-    // 북마크 목록 가져오기
+    /**
+     * 모든 북마크를 데이터베이스에서 가져옵니다.
+     *
+     * @param dbPath SQLite 데이터베이스 파일 경로
+     * @return 북마크 리스트
+     * @throws SQLException 데이터베이스 작업 중 예외 발생 시
+     */
     public static List<Bookmark> getBookmarks(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query =
@@ -62,13 +85,21 @@ public class BookmarkDBTool {
                         rs.getString("bookmark_group_name"),
                         rs.getString("wifi_name"),
                         rs.getString("register_dttm"),
-                        rs.getString("mgr_no") // 추가된 mgrNo 필드
+                        rs.getString("mgr_no") // 추가된 mgrNo 필드 (상세보기 팝업용)
                 ));
             }
         }
         return bookmarks;
     }
 
+    /**
+     * 북마크 ID로 북마크를 조회합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 파일 경로
+     * @param id 북마크 ID
+     * @return 북마크 객체
+     * @throws SQLException ID에 해당하는 북마크가 없을 경우 예외 발생
+     */
     public static Bookmark getBookmarkById(String dbPath, int id) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query = "SELECT b.id, g.name AS groupName, w.x_swifi_main_nm AS wifiName, b.register_dttm, b.mgr_no " +
@@ -89,7 +120,7 @@ public class BookmarkDBTool {
                             rs.getString("groupName"),
                             rs.getString("wifiName"),
                             rs.getString("register_dttm"),
-                            rs.getString("mgr_no") // 추가된 mgrNo 필드
+                            rs.getString("mgr_no") // 추가된 mgrNo 필드 (상세보기 팝업용)
                     );
                 }
             }
@@ -97,7 +128,14 @@ public class BookmarkDBTool {
         throw new SQLException("No bookmark found with ID: " + id);
     }
 
-    // 북마크 삭제
+    /**
+     * 특정 북마크를 삭제합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 파일 경로
+     * @param id 삭제할 북마크의 ID
+     * @return 삭제 성공 여부
+     * @throws SQLException 데이터베이스 작업 중 예외 발생 시
+     */
     public static boolean deleteBookmark(String dbPath, int id) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
         String query = "DELETE FROM bookmark_list WHERE id = ?";
@@ -111,6 +149,13 @@ public class BookmarkDBTool {
         }
     }
 
+    /**
+     * 모든 북마크를 삭제합니다.
+     *
+     * @param dbPath SQLite 데이터베이스 파일 경로
+     * @return 삭제 성공 여부
+     * @throws SQLException 데이터베이스 작업 중 예외 발생 시
+     */
     public static boolean deleteAllBookmarks(String dbPath) throws SQLException {
         String dbUrl = "jdbc:sqlite:" + dbPath;
 
@@ -121,7 +166,7 @@ public class BookmarkDBTool {
             conn.setAutoCommit(false); // 트랜잭션 시작
 
             try (Statement stmt = conn.createStatement()) {
-                int rowsDeleted = stmt.executeUpdate(deleteAllBookmarksQuery);
+                stmt.executeUpdate(deleteAllBookmarksQuery);
                 conn.commit(); // 성공 시 커밋
                 return true;
             } catch (SQLException e) {

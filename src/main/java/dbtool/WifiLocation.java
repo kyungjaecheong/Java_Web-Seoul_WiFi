@@ -3,8 +3,10 @@ package dbtool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-// @Data는 모든 Getter, Setter, toString, EqualsAndHashCode를 자동 생성합니다.
-// @AllArgsConstructor는 모든 필드를 매개변수로 받는 생성자를 자동 생성합니다.
+/**
+ * WifiLocation 클래스는 와이파이 설치 위치 및 정보를 표현하기 위한 데이터 모델 클래스입니다.
+ * 주어진 위치(위도, 경도)로부터 와이파이와의 거리 정보도 포함합니다.
+ */
 @Data
 @AllArgsConstructor
 public class WifiLocation {

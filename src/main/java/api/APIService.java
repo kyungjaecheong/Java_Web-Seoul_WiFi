@@ -14,20 +14,33 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * APIService 클래스는 OpenAPI를 통해 데이터를 가져와 데이터베이스에 저장하고,
+ * 데이터 처리 및 관리 작업을 수행하는 유틸리티 클래스입니다.
+ */
 public class APIService {
     private static final String apiUrl = "http://openapi.seoul.go.kr:8088/696474764564616e39307548544a75/json/TbPublicWifiInfo/";
     private static String dbPath;
     private static final String SAMPLE_DB_PATH = "src/main/webapp/WEB-INF/db/sample.db";
 
-    // ServletContext로 경로 설정
+    /**
+     * ServletContext를 통해 데이터베이스 경로를 초기화합니다.
+     *
+     * @param context ServletContext 객체
+     */
     public static void initialize(ServletContext context) {
         dbPath = context.getRealPath("/WEB-INF/db/wifiDatabase.db");
     }
 
-    // API 상태 확인
+    /**
+     * OpenAPI 상태를 확인하여 성공 여부를 반환합니다.
+     *
+     * @return 상태 코드 ("INFO-000"이 성공 상태)
+     * @throws Exception 요청 실패 시 발생
+     */
     public static String fetchAPIStatus() throws Exception {
         OkHttpClient client = new OkHttpClient();
-        String url = apiUrl + "1/1";
+        String url = apiUrl + "1/1";    // 최소 범위로 API 상태 확인
         Request request = new Request.Builder().url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -42,10 +55,15 @@ public class APIService {
         }
     }
 
-    // Open API로부터 총 데이터 수를 가져오는 메서드
+    /**
+     * OpenAPI로부터 총 데이터 수를 가져옵니다.
+     *
+     * @return 총 데이터 수
+     * @throws Exception 요청 실패 시 발생
+     */
     private static int fetchTotalCount() throws Exception {
         OkHttpClient client = new OkHttpClient();
-        String url = apiUrl + "1/1"; // 첫 번째 요청에서 총 데이터 수를 가져옴
+        String url = apiUrl + "1/1"; // 최소 범위로 API 상태 확인
         Request request = new Request.Builder().url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -69,10 +87,17 @@ public class APIService {
         }
     }
 
-    // API 데이터 가져오기
+    /**
+     * OpenAPI로부터 와이파이 데이터를 특정 범위 내에서 가져옵니다.
+     *
+     * @param start 시작 인덱스
+     * @param end   종료 인덱스
+     * @return JsonObject 목록
+     * @throws Exception 요청 실패 시 발생
+     */
     public static List<JsonObject> fetchWifiData(int start, int end) throws Exception {
         OkHttpClient client = new OkHttpClient();
-        String url = apiUrl + start + "/" + end;
+        String url = apiUrl + start + "/" + end;    // 범위에 따른 데이터 요청
         Request request = new Request.Builder().url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -100,7 +125,12 @@ public class APIService {
         }
     }
 
-    // 데이터베이스에 데이터 저장
+    /**
+     * 와이파이 데이터를 데이터베이스에 저장합니다.
+     *
+     * @param wifiList 저장할 JsonObject 목록
+     * @throws Exception 저장 실패 시 발생
+     */
     public static void saveWifiDataToDatabase(List<JsonObject> wifiList) throws Exception {
         String dbUrl = "jdbc:sqlite:" + dbPath;
 
@@ -114,7 +144,7 @@ public class APIService {
         try (Connection conn = DriverManager.getConnection(dbUrl);
              PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
 
-            conn.setAutoCommit(false);
+            conn.setAutoCommit(false);  // 트랜잭션 시작
 
             for (JsonObject wifi : wifiList) {
                 pstmt.setString(1, wifi.get("X_SWIFI_MGR_NO").getAsString());
@@ -136,12 +166,17 @@ public class APIService {
                 pstmt.addBatch();
             }
 
-            pstmt.executeBatch();
-            conn.commit();
+            pstmt.executeBatch();   // 배치 실행
+            conn.commit();        // 트랜잭션 커밋
         }
     }
 
-    // 데이터베이스 테이블 초기화
+    /**
+     * 데이터베이스의 public_wifi 테이블을 초기화합니다.
+     *
+     * @param dbUrl 데이터베이스 URL
+     * @throws Exception 초기화 실패 시 발생
+     */
     private static void truncateTable(String dbUrl) throws Exception {
         try (Connection conn = DriverManager.getConnection(dbUrl);
              Statement stmt = conn.createStatement()) {
@@ -156,7 +191,11 @@ public class APIService {
         }
     }
 
-    // API 데이터를 가져와 데이터베이스에 저장 (혹은 sample.db에서 데이터를 복사)
+    /**
+     * OpenAPI에서 데이터를 가져오거나 sample.db 데이터를 복사하여 데이터베이스를 초기화합니다.
+     *
+     * @return 처리 결과 메시지
+     */
     public static String fetchAndSaveWifiData() {
         try {
             // API 상태 확인
@@ -173,7 +212,7 @@ public class APIService {
             }
 
             // 총 데이터 수 확인
-            int totalCount = fetchTotalCount();
+            int totalCount = fetchTotalCount(); // 총 데이터 수 확인
             System.out.println("Total Data: " + totalCount);
 
             // 데이터 요청 및 저장
@@ -182,7 +221,7 @@ public class APIService {
             while (start <= totalCount) {
                 int end = Math.min(start + batchSize - 1, totalCount);
                 List<JsonObject> wifiData = fetchWifiData(start, end);
-                saveWifiDataToDatabase(wifiData);
+                saveWifiDataToDatabase(wifiData);   // 데이터 저장
                 System.out.println(start + " ~ " + end + " Data Stored");
                 start += batchSize;
             }
@@ -194,7 +233,11 @@ public class APIService {
         }
     }
 
-    // sample.db에서 public_wifi 데이터를 트랜잭션 방식으로 복사
+    /**
+     * sample.db에서 데이터를 복사하여 데이터베이스를 초기화합니다.
+     *
+     * @throws Exception 복사 실패 시 발생
+     */
     public static void copyDataFromSampleDB() throws Exception {
         File sampleDbFile = new File(SAMPLE_DB_PATH);
         if (!sampleDbFile.exists()) {

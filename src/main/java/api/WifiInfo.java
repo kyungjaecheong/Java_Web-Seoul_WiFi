@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * WifiInfo 클래스는 서울시 공공 와이파이 정보를 표현하기 위한 데이터 모델 클래스입니다.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
