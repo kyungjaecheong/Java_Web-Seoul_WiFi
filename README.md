@@ -2,6 +2,8 @@
 - 내 위치 기반 공공 와이파이 정보(서울시 Open API)를 제공하는 JSP 웹서비스(WAS) 개발
 - ZeroBase BackEnd School - Java/JSP Mission 1 Project
 
+![image](https://github.com/user-attachments/assets/3de1885d-4f50-499f-9d58-5388b8c04c18)
+
 <div align=left>
 
 ## Tech Stack
@@ -29,6 +31,14 @@
 
 </div>
 
+# Project Outline 프로젝트 개요
+- **프로젝트 목표**
+  - 사용자 위치 기반으로 가까운 공공 WiFi 정보를 제공하고, 맞춤형 북마크 및 위치 기록 관리 기능을 제공하는 JSP 기반의 웹 애플리케이션 개발
+- **구현 기능 목표**
+  - Open API와 DBMS를 통한 데이터 수집, 관리, 조회 기능 구현
+  - WiFi 정보 조회, 상세 정보 확인 기능 구현
+  - 사용자 위치 기록 및 북마크 관리 기능 구현
+
 ## Project Settings 프로젝트 세팅 정보
 
 ### 1. Java & Maven
@@ -52,14 +62,6 @@
 
 ### 3. Web Application Server (WAS)
 - `Apache Tomcat` : Apache Tomcat 9.0.97
-
-# Project Outline 프로젝트 개요
-- **프로젝트 목표**
-  - 사용자 위치 기반으로 가까운 공공 WiFi 정보를 제공하고, 맞춤형 북마크 및 위치 기록 관리 기능을 제공하는 JSP 기반의 웹 애플리케이션 개발
-- **구현 기능 목표**
-  - Open API와 DBMS를 통한 데이터 수집, 관리, 조회 기능 구현
-  - WiFi 정보 조회, 상세 정보 확인 기능 구현
-  - 사용자 위치 기록 및 북마크 관리 기능 구현
 
 ## 주요 기능
 
@@ -164,16 +166,27 @@
 ## 3. 프로그램 결과물 (웹 화면 캡쳐)
 ### 메인 페이지
 - WiFi 검색 폼과 Open API 데이터 로드 버튼 제공
+  ![image](https://github.com/user-attachments/assets/3f0c4ab0-b891-4dbd-8a1e-c41869e0bff3)
+  
 - 입력한 위치 기준으로 가까운 WiFi 정보 20개 리스트 제공
+  ![image](https://github.com/user-attachments/assets/43f2d946-545c-439a-8821-576028f0e46b)
+
 ### 상세 정보 페이지 (팝업)
 - 특정 WiFi 상세 정보 제공
 - 북마크 추가 기능 제공
+  ![image](https://github.com/user-attachments/assets/b6081720-96ca-4112-9db3-fabe96472823)
+
 ### 위치 기록 페이지
 - 사용자 위치 조회 기록 확인 및 삭제
+  ![image](https://github.com/user-attachments/assets/e0b1b41d-05be-42cc-8356-e273289d0c74)
+
 ### 북마크 관리 페이지
 - WiFi 북마크 조회/삭제 기능
+  ![image](https://github.com/user-attachments/assets/1d643ed0-6f14-4c0d-8425-840828c8d4d4)
+
 ### 북마크 그룹 관리 페이지
 - 북마크 그룹 조회/생성/수정/삭제(CRUD) 기능
+  ![image](https://github.com/user-attachments/assets/62f4717b-848c-4927-b332-5279992e6a7b)
 
 # 개발자 정보
 - 개발자 : 정경재 (KyungJae, Cheong)
