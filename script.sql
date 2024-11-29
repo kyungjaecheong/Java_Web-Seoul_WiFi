@@ -17,8 +17,8 @@ create table public_wifi
     x_swifi_adres1      TEXT,
     x_swifi_adres2      TEXT,
     x_swifi_instl_floor TEXT,
-    x_swifi_instl_mby   TEXT,
     x_swifi_instl_ty    TEXT,
+    x_swifi_instl_mby   TEXT,
     x_swifi_svc_se      TEXT,
     x_swifi_cmcwr       TEXT,
     x_swifi_cnstc_year  TEXT,
@@ -27,14 +27,14 @@ create table public_wifi
     lat                 TEXT,
     lnt                 TEXT,
     work_dttm           TIMESTAMP,
-    primary key (id)
+    primary key (id autoincrement)
 );
 
 create table bookmark_list
 (
     id            INTEGER,
     group_no      INTEGER,
-    mgr_no        INTEGER,
+    mgr_no        TEXT,
     register_dttm TEXT,
     primary key (id),
     constraint group_fk
@@ -51,5 +51,3 @@ create table search_wifi
     search_dttm TEXT,
     primary key (id)
 );
-
-
